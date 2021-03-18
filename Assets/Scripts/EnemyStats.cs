@@ -15,16 +15,28 @@ public class EnemyStats : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("detectao");
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
-            LostHealth(collision.GetComponent<PlayerBullet>().Damage);
+            if(health > 0)
+            {
+                LostHealth(collision.GetComponent<PlayerBullet>().Damage);
+            }
+            else
+            {
+                EnemyDie();
+            }
+            
         }
     }
 
     public void LostHealth(float Damage)
     {
         health -= Damage;
+    }
+
+    public void EnemyDie()
+    {
+        Destroy(gameObject);
     }
 
 }
