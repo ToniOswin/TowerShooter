@@ -10,16 +10,17 @@ public class PlayerShoot : MonoBehaviour
     [Header("Bullets")]
     [SerializeField]
     GameObject bulletPrefab;
+    PlayerStats PlayerStatsScript;
     [SerializeField]
     float maxDelay;
     float delay;
-    // Start is called before the first frame update
+
     void Start()
     {
-
+        PlayerStatsScript = gameObject.GetComponent<PlayerStats>();
     }
 
-    // Update is called once per frame
+ 
     void Update()
     {
 
@@ -43,6 +44,8 @@ public class PlayerShoot : MonoBehaviour
     void ShootBullets()
     {
         bulletPrefab.GetComponent<PlayerBullet>().direction = GetDirection().normalized;
+        float damage = PlayerStatsScript.bulletDamage;
+        bulletPrefab.GetComponent<PlayerBullet>().Damage = damage;
         Instantiate(bulletPrefab, canon.transform.position, bulletPrefab.transform.rotation);
     }
 
