@@ -7,25 +7,31 @@ public class EnemyStraightMov : MonoBehaviour
 {
     [SerializeField]
     float speed;
+    Transform target;
+    [SerializeField]
+    float attackDistance;
 
     [SerializeField]
-    Transform target;
-
+    bool canBePushed;
+    public bool isOnPlace;
     void Start()
     {
-
-        //transform.DOMoveX(target.position.x, timeToGet);
-
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        isOnPlace = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        transform.Translate(Vector2.left * Time.deltaTime * speed);
+        if(Mathf.Abs(target.position.x - transform.position.x) > attackDistance)
+        {
+            transform.Translate(Vector2.left * Time.deltaTime * speed);
+        }
+        else { isOnPlace = true; }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerBullet"))
+        if (collision.gameObject.CompareTag("PlayerBullet") && canBePushed == true)
         {
             Pushed();
         }
