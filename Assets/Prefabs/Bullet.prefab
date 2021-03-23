@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a715bbfd0d9d3fa498b94d889c7f0ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0.99997026, y: 0.0077186865}
+  direction: {x: 0, y: 0}
   speed: 10
-  Damage: 5
+  damage: 1
 --- !u!58 &1471027568762253032
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -112,6 +112,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.29747787, y: 0}
   serializedVersion: 2
-  m_Radius: 0.19
+  m_Radius: 0.12524292

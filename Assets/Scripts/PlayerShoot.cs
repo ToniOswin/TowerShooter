@@ -15,45 +15,56 @@ public class PlayerShoot : MonoBehaviour
     float maxDelay;
     float delay;
 
+    [Header("Fireball")]
+    [SerializeField]
+    GameObject FireballPrefab;
+    [SerializeField]
+    GameObject target;
+
     void Start()
     {
         PlayerStatsScript = gameObject.GetComponent<PlayerStats>();
+        
     }
 
  
     void Update()
     {
+        Vector2 mouse = Input.mousePosition;
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(transform.localPosition);
+        Vector2 offset = new Vector2(mouse.x - screenPoint.x, mouse.y - screenPoint.y);
+        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        Vector2 mouseOnWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        target.transform.position = mouseOnWorld; 
 
         if (Input.GetMouseButton(0))
         {
             delay -= Time.deltaTime;
             if (delay <= 0)
             {
-                ShootBullets();
+                ShootBullets(Quaternion.Euler(0, 0, angle));
                 delay = maxDelay;
             }
         }
 
-        Vector2 mouse = Input.mousePosition;
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(transform.localPosition);
-        Vector2 offset = new Vector2(mouse.x - screenPoint.x, mouse.y - screenPoint.y);
-        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        if(Input.GetMouseButton(1))
+        {
+            target.SetActive(true);
+        }
+        if(Input.GetMouseButtonUp(1))
+        {
+            Instantiate(FireballPrefab, Camera.main.ScreenToWorldPoint(mouse), FireballPrefab.transform.rotation);
+            target.SetActive(false);
+        }
     }
 
-    void ShootBullets()
+    void ShootBullets(Quaternion rotation)
     {
-        bulletPrefab.GetComponent<PlayerBullet>().direction = GetDirection().normalized;
         float damage = PlayerStatsScript.bulletDamage;
-        bulletPrefab.GetComponent<PlayerBullet>().Damage = damage;
-        Instantiate(bulletPrefab, canon.transform.position, bulletPrefab.transform.rotation);
+        bulletPrefab.GetComponent<PlayerBullet>().damage = damage;
+        Instantiate(bulletPrefab, canon.transform.position, rotation);
     }
 
-    Vector2 GetDirection()
-    {
-        Vector2 mousePos = Input.mousePosition;
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(canon.transform.position);
-        Vector2 directionBullet = mousePos - screenPoint;
-        return directionBullet;
-    }
 }

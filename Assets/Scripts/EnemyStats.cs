@@ -24,15 +24,27 @@ public class EnemyStats : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             Destroy(collision.gameObject);
-            if(health > 1)
+            if (health > 1)
             {
-                LostHealth(collision.GetComponent<PlayerBullet>().Damage);
+                LostHealth(collision.GetComponent<PlayerBullet>().damage);
             }
             else
             {
                 EnemyDie();
             }
-            
+        }
+
+        if(collision.gameObject.CompareTag("Fireball"))
+        {
+            if (health > 1)
+            {
+               LostHealth(collision.GetComponent<FireBall>().damage);
+                if(health < 1) { EnemyDie(); }
+            }
+            else
+            {
+                EnemyDie();
+            }
         }
     }
 
