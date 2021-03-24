@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class EnemyStats : MonoBehaviour
 {
-    [Header("Life")]
-    [SerializeField]
-    float maxHealth;
+    [Header("BaseStats")]
+    public float baseMaxHealth;
+    public float baseDamage;
+
+    [Header("Stats")]
+    public float maxHealth;
     public float health;
+    public float damage;
+
     [SerializeField]
     Slider lifeSlider;
 

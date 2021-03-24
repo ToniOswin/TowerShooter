@@ -157,8 +157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998c8ec878a46f340bfda6212dc950ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMaxHealth: 3
+  baseDamage: 10
   maxHealth: 3
   health: 0
+  damage: 20
   lifeSlider: {fileID: 6677907727301417084}
 --- !u!50 &6921733630942272317
 Rigidbody2D:
@@ -209,7 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752ac61cf499d7d479b32a4c9c570627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
   maxAttackDelay: 1
 --- !u!1001 &3148193099771681683
 PrefabInstance:

@@ -157,8 +157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998c8ec878a46f340bfda6212dc950ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  baseMaxHealth: 7
+  baseDamage: 15
+  maxHealth: 7
   health: 0
+  damage: 15
   lifeSlider: {fileID: 6677907727301417084}
 --- !u!50 &6921733630942272317
 Rigidbody2D:
@@ -209,7 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adfb49143cad4d40b68dc43f4d7fa84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
   maxShootDelay: 3
   enemyBullet: {fileID: 8330227712188905906, guid: 9f0ad7b7b55a197499f5966654a3465f, type: 3}
 --- !u!1001 &3148193099771681683

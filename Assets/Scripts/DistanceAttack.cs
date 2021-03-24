@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DistanceAttack : MonoBehaviour
 {
-    [SerializeField]
     float damage;
     [SerializeField]
     float maxShootDelay;
@@ -14,8 +13,12 @@ public class DistanceAttack : MonoBehaviour
     bool isOnPlace;
 
     EnemyStraightMov enemyMoveScript;
+    EnemyStats statsScript;
     void Start()
     {
+        statsScript = GetComponent<EnemyStats>();
+        damage = statsScript.damage;
+
         enemyMoveScript = GetComponent<EnemyStraightMov>();
         isOnPlace = enemyMoveScript.isOnPlace;
         shootDelay = maxShootDelay;

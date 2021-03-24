@@ -6,15 +6,17 @@ public class MeleeAtack : MonoBehaviour
 {
     Transform player;
     PlayerStats playerScript;
+    EnemyStats statsScript;
 
-    [SerializeField]
-    float Damage;
+    float damage;
     float attackDelay;
     [SerializeField]
     float maxAttackDelay;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        statsScript = GetComponent<EnemyStats>();
+        damage = statsScript.damage; 
         playerScript = player.GetComponent<PlayerStats>();
         attackDelay = maxAttackDelay;
     }
@@ -30,7 +32,7 @@ public class MeleeAtack : MonoBehaviour
     {
         if(attackDelay <=0)
         {
-            playerScript.PlayerGetDamage(Damage);
+            playerScript.PlayerGetDamage(damage);
             attackDelay = maxAttackDelay;
         }
         else

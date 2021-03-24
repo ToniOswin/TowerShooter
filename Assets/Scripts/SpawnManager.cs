@@ -6,8 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
     GameObject[] spawnPoints;
-    [SerializeField]
-    GameObject[] enemiesPrefabs;
+    public GameObject[] enemiesPrefabs;
 
 
     [SerializeField]
@@ -15,30 +14,36 @@ public class SpawnManager : MonoBehaviour
     float timeUntilNextWave;
 
     int nextEnemy;
+
+    GameManager _GameManager;
     void Start()
     {
         timeUntilNextWave = 1;
+        _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(timeUntilNextWave <=0)
+        if(_GameManager.IsWaveOn == true)
         {
-            for(int i = 0; i < spawnPoints.Length; i++)
+            if(timeUntilNextWave <=0)
             {
-                nextEnemy = Random.Range(0, enemiesPrefabs.Length);
-                Instantiate(enemiesPrefabs[nextEnemy], spawnPoints[i].transform.position, enemiesPrefabs[nextEnemy].transform.rotation);
+                for(int i = 0; i < spawnPoints.Length; i++)
+                {
+                    nextEnemy = Random.Range(0, enemiesPrefabs.Length);
+                    Instantiate(enemiesPrefabs[nextEnemy], spawnPoints[i].transform.position, enemiesPrefabs[nextEnemy].transform.rotation);
+                }
+                timeUntilNextWave = timeBetweenWaves;
+                if(timeBetweenWaves > 3)
+                {
+                    timeBetweenWaves -= 0.2f;
+                }
             }
-            timeUntilNextWave = timeBetweenWaves;
-            if(timeBetweenWaves > 3)
+            else
             {
-                timeBetweenWaves -= 0.2f;
+                timeUntilNextWave -= Time.deltaTime;
             }
-        }
-        else
-        {
-            timeUntilNextWave -= Time.deltaTime;
         }
     }
 }
