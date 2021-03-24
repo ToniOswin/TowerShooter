@@ -11,15 +11,11 @@ public class PlayerStats : MonoBehaviour
     [Space]
     [Header("Damage")]
     public float bulletDamage;
+    public float fireBallDamage;
 
     void Start()
     {
         playerHealth = maxPlayerHealth;
-    }
-
-    void Update()
-    {
-        
     }
 
     public void PlayerGetDamage(float damage)

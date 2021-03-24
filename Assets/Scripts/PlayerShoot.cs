@@ -46,7 +46,7 @@ public class PlayerShoot : MonoBehaviour
         Fire.text = actualTimeToFireBall.ToString("F0");
     }
 
-    void ShootBullets(Quaternion rotation)
+    void CreateBullets(Quaternion rotation)
     {
         float damage = PlayerStatsScript.bulletDamage;
         bulletPrefab.GetComponent<PlayerBullet>().damage = damage;
@@ -69,7 +69,7 @@ public class PlayerShoot : MonoBehaviour
             delay -= Time.deltaTime;
             if (delay <= 0)
             {
-                ShootBullets(Quaternion.Euler(0, 0, angle));
+                CreateBullets(Quaternion.Euler(0, 0, angle));
                 delay = maxDelay;
             }
         }
@@ -85,6 +85,7 @@ public class PlayerShoot : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(1))
             {
+                FireballPrefab.GetComponent<FireBall>().damage = PlayerStatsScript.fireBallDamage;
                 Instantiate(FireballPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), FireballPrefab.transform.rotation);
                 FireBallReady = false;
                 actualTimeToFireBall = timeToFireBall;
