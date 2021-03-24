@@ -15,7 +15,11 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        maxPlayerHealth = PlayerPrefs.GetFloat("PlayerHealth", 100);
+        bulletDamage = PlayerPrefs.GetFloat("PlayerDamage", 1);
+        fireBallDamage = PlayerPrefs.GetFloat("PlayerFireDamage", 10);
         playerHealth = maxPlayerHealth;
+
     }
 
     public void PlayerGetDamage(float damage)
