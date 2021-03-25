@@ -13,15 +13,17 @@ public class EnemyStats : MonoBehaviour
     public float maxHealth;
     public float health;
     public float damage;
+    public int value;
 
     [SerializeField]
     Slider lifeSlider;
-
+    PlayerStats playerScript;
     void Start()
     {
         health = maxHealth;
         lifeSlider.maxValue = maxHealth;
         lifeSlider.value = maxHealth;
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,13 +31,9 @@ public class EnemyStats : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             Destroy(collision.gameObject);
-            if (health > 1)
+            if (health > 0)
             {
                 LostHealth(collision.GetComponent<PlayerBullet>().damage);
-            }
-            else
-            {
-                EnemyDie();
             }
         }
 
@@ -44,11 +42,6 @@ public class EnemyStats : MonoBehaviour
             if (health > 1)
             {
                LostHealth(collision.GetComponent<FireBall>().damage);
-                if(health < 1) { EnemyDie(); }
-            }
-            else
-            {
-                EnemyDie();
             }
         }
     }
@@ -57,10 +50,15 @@ public class EnemyStats : MonoBehaviour
     {
         health -= Damage;
         lifeSlider.value = health;
+        if(health <= 0)
+        {
+            EnemyDie();
+        }
     }
 
     public void EnemyDie()
     {
+        playerScript.GetMoney(value);
         Destroy(gameObject);
     }
 

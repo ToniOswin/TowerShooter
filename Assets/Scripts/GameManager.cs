@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     SpawnManager spawnManScript;
+    PlayerStats playerScript;
     GameObject[] enemies;
 
     float LevelTime = 60;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         actualTime = LevelTime;
         IsWaveOn = true;
         spawnManScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         enemies = spawnManScript.enemiesPrefabs;
         wave = PlayerPrefs.GetInt("Wave", 1);
         WaveText.text = "Wave " + wave;
@@ -81,6 +83,13 @@ public class GameManager : MonoBehaviour
     void WinGame()
     {
         PlayerPrefs.SetInt("Wave", wave + 1);
-        SceneManager.LoadScene("GamePLay");
+        PlayerPrefs.SetInt("Money", playerScript.money);
+        SceneManager.LoadScene("GamePlay");
+    }
+
+    public void LoseGame()
+    {
+        PlayerPrefs.SetInt("Money", playerScript.money);
+        SceneManager.LoadScene("Shop");
     }
 }

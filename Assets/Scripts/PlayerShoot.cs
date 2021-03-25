@@ -63,16 +63,20 @@ public class PlayerShoot : MonoBehaviour
 
         Vector2 mouseOnWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         target.transform.position = mouseOnWorld;
-
-        if (Input.GetMouseButton(0))
+        if(delay > 0)
         {
             delay -= Time.deltaTime;
+        }
+       
+        if (Input.GetMouseButton(0))
+        {
             if (delay <= 0)
             {
                 CreateBullets(Quaternion.Euler(0, 0, angle));
                 delay = maxDelay;
             }
         }
+
     }
 
     void ShootFireball()

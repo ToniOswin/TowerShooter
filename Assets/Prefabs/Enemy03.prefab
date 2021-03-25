@@ -162,6 +162,7 @@ MonoBehaviour:
   maxHealth: 7
   health: 0
   damage: 15
+  value: 10
   lifeSlider: {fileID: 6677907727301417084}
 --- !u!50 &6921733630942272317
 Rigidbody2D:
