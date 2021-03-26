@@ -35,9 +35,9 @@ public class SpawnManager : MonoBehaviour
                     Instantiate(enemiesPrefabs[nextEnemy], spawnPoints[i].transform.position, enemiesPrefabs[nextEnemy].transform.rotation);
                 }
                 timeUntilNextWave = timeBetweenWaves;
-                if(timeBetweenWaves > 3)
+                if(timeBetweenWaves > 5)
                 {
-                    timeBetweenWaves -= 0.2f;
+                    timeBetweenWaves -= 0.5f;
                 }
             }
             else

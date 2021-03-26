@@ -14,8 +14,10 @@ public class DistanceAttack : MonoBehaviour
 
     EnemyStraightMov enemyMoveScript;
     EnemyStats statsScript;
+    PlayerStats playerScript;
     void Start()
     {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         statsScript = GetComponent<EnemyStats>();
         damage = statsScript.damage;
 
@@ -37,6 +39,7 @@ public class DistanceAttack : MonoBehaviour
     {
         if(shootDelay <= 0)
         {
+            playerScript.ShootSound();
             enemyBullet.GetComponent<EnemyBullet>().damage = damage;
             Instantiate(enemyBullet, transform.position, enemyBullet.transform.rotation);
             shootDelay = maxShootDelay;

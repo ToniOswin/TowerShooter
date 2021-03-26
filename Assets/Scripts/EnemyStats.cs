@@ -18,6 +18,7 @@ public class EnemyStats : MonoBehaviour
     [SerializeField]
     Slider lifeSlider;
     PlayerStats playerScript;
+    
     void Start()
     {
         health = maxHealth;
@@ -48,6 +49,7 @@ public class EnemyStats : MonoBehaviour
 
     public void LostHealth(float Damage)
     {
+        playerScript.EnemyGetsHit();
         health -= Damage;
         lifeSlider.value = health;
         if(health <= 0)
@@ -60,6 +62,7 @@ public class EnemyStats : MonoBehaviour
     {
         playerScript.GetMoney(value);
         Destroy(gameObject);
+        playerScript.EnemyDie();
     }
 
 }

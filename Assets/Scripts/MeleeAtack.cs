@@ -18,7 +18,6 @@ public class MeleeAtack : MonoBehaviour
         statsScript = GetComponent<EnemyStats>();
         damage = statsScript.damage; 
         playerScript = player.GetComponent<PlayerStats>();
-        attackDelay = maxAttackDelay;
     }
     void Update()
     {
@@ -32,6 +31,7 @@ public class MeleeAtack : MonoBehaviour
     {
         if(attackDelay <=0)
         {
+            playerScript.AttackSound();
             playerScript.PlayerGetDamage(damage);
             attackDelay = maxAttackDelay;
         }

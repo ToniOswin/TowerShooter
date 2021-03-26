@@ -20,8 +20,12 @@ public class GameManager : MonoBehaviour
     TextMeshProUGUI WaveText;
     [SerializeField]
     TextMeshProUGUI TimeText;
+    bool gamePaused;
+    [SerializeField]
+    Canvas pausedCanvas;
     void Start()
     {
+        gamePaused = false;
         actualTime = LevelTime;
         IsWaveOn = true;
         spawnManScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
@@ -47,6 +51,18 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GameTime();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if( gamePaused == false)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ContinueGame();
+            }
+        }
     }
 
     void GameTime()
@@ -91,5 +107,24 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Money", playerScript.money);
         SceneManager.LoadScene("Shop");
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+        gamePaused = true;
+        pausedCanvas.gameObject.SetActive(true);
+    }
+
+    void ContinueGame()
+    {
+        Time.timeScale = 1;
+        gamePaused = false;
+        pausedCanvas.gameObject.SetActive(false);
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

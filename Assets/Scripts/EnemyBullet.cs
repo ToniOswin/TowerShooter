@@ -20,6 +20,7 @@ public class EnemyBullet : MonoBehaviour
         transform.Translate(Vector2.left * Time.deltaTime * speed);
         if(Mathf.Abs(player.position.x - transform.position.x) < 0.5)
         {
+            playerScript.AttackSound();
             playerScript.PlayerGetDamage(damage);
             Destroy(gameObject);
         }

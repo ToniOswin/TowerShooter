@@ -12,9 +12,9 @@ public class ShopManager : MonoBehaviour
     float health;
     float fireDamage;
 
-    int damagePrice = 150;
-    int healthPrice = 100;
-    int fireDamagePrice = 200;
+    int damagePrice = 300;
+    int healthPrice = 500;
+    int fireDamagePrice = 700;
     
     [Header("ActualStatsText")]
     [SerializeField]
@@ -64,7 +64,7 @@ public class ShopManager : MonoBehaviour
     public void UpgradeDamage()
     {
         money -= damagePrice;
-        damage += 2;
+        damage += 0.5f;
         PlayerPrefs.SetInt("Money", money);
         PlayerPrefs.SetFloat("PlayerDamage", damage);
         GetStats();
@@ -72,7 +72,7 @@ public class ShopManager : MonoBehaviour
     public void UpgradeFireDamage()
     {
         money -= damagePrice;
-        fireDamage += 7;
+        fireDamage += 5;
         PlayerPrefs.SetInt("Money", money);
         PlayerPrefs.SetFloat("PlayerFireDamage", fireDamage);
         GetStats();
@@ -115,7 +115,7 @@ public class ShopManager : MonoBehaviour
 
     public void LoadMenu()
     {
-        Debug.Log("No hay menu aun UwW");
+        SceneManager.LoadScene("Menu");
     }
 
     public void StartGame()

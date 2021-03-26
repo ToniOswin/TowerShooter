@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerShoot : MonoBehaviour
 {
     [SerializeField]
     GameObject canon;
+    [SerializeField]
+    AudioSource audioS;
 
     [Header("Bullets")]
     [SerializeField]
@@ -15,6 +18,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     float maxDelay;
     float delay;
+    [SerializeField]
+    AudioClip shootSound;
 
     [Header("Fireball")]
     [SerializeField]
@@ -26,12 +31,14 @@ public class PlayerShoot : MonoBehaviour
     float actualTimeToFireBall;
     bool FireBallReady = false;
     [SerializeField]
-    TextMeshProUGUI Fire;
+    Image fill;
+    [SerializeField]
+    AudioClip fireSound;
 
     void Start()
     {
         PlayerStatsScript = gameObject.GetComponent<PlayerStats>();
-        actualTimeToFireBall = timeToFireBall;
+        actualTimeToFireBall = 0;
     }
 
  
@@ -43,7 +50,6 @@ public class PlayerShoot : MonoBehaviour
 
         ShootFireball();
 
-        Fire.text = actualTimeToFireBall.ToString("F0");
     }
 
     void CreateBullets(Quaternion rotation)
@@ -51,6 +57,7 @@ public class PlayerShoot : MonoBehaviour
         float damage = PlayerStatsScript.bulletDamage;
         bulletPrefab.GetComponent<PlayerBullet>().damage = damage;
         Instantiate(bulletPrefab, canon.transform.position, rotation);
+        audioS.PlayOneShot(shootSound);
     }
 
     void ShootBullets()
@@ -89,10 +96,11 @@ public class PlayerShoot : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(1))
             {
+                audioS.PlayOneShot(fireSound);
                 FireballPrefab.GetComponent<FireBall>().damage = PlayerStatsScript.fireBallDamage;
                 Instantiate(FireballPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), FireballPrefab.transform.rotation);
                 FireBallReady = false;
-                actualTimeToFireBall = timeToFireBall;
+                actualTimeToFireBall =0;
                 target.SetActive(false);
             }
         }
@@ -100,13 +108,15 @@ public class PlayerShoot : MonoBehaviour
 
     void ChargeFireBall()
     {
-        if (actualTimeToFireBall <= 0)
+        if (actualTimeToFireBall >= timeToFireBall)
         {
             FireBallReady = true;
+            fill.fillAmount = 1;
         }
         else
         {
-            actualTimeToFireBall -= Time.deltaTime;
+            actualTimeToFireBall += Time.deltaTime;
+            fill.fillAmount = actualTimeToFireBall / timeToFireBall;
         }
     }
 }
